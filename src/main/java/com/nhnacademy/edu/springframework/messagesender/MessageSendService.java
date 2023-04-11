@@ -7,7 +7,7 @@ public class MessageSendService {
         this.messageSender = messageSender;
     }
 
-    public void doSendMessage(){
+    public void doSendMessage() {
 
     }
 }
