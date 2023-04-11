@@ -9,7 +9,6 @@ public class Main {
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml")) {
             MessageSendService messageSendService = context.getBean("messageSendService", MessageSendService.class);
             messageSendService.doSendMessage();
-
         }
     }
 
