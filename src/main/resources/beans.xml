@@ -4,9 +4,9 @@
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="messageSendService" class="com.nhnacademy.edu.springframework.messagesender.MessageSendService">
-        <property name="messageSender" ref="smsMessageSender" />
-    </bean>
     <bean id="smsMessageSender" class="com.nhnacademy.edu.springframework.messagesender.SmsMessageSender"/>
-    <!--    <bean id="emailMessageSender" class="com.nhnacademy.edu.springframework.messagesender.EmailMessageSender" scope="singleton" init-method="init" destroy-method="cleanup"></bean>-->
+    <bean id="emailMessageSender" class="com.nhnacademy.edu.springframework.messagesender.EmailMessageSender"/>
+
+    <bean id="messageSendService" class="com.nhnacademy.edu.springframework.messagesender.MessageSendService"
+          autowire="byName"></bean>
 </beans>
