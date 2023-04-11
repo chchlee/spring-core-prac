@@ -1,6 +1,6 @@
 package com.nhnacademy.edu.springframework.messagesender;
 
-public class SmsMessageSender implements MessageSender{
+public class SmsMessageSender implements MessageSender {
 
     @Override
     public void sendMessage(User user, String message) {
@@ -8,7 +8,9 @@ public class SmsMessageSender implements MessageSender{
     }
 
     @Override
-    public void init(){
+    public void init() {
         System.out.println(getClass().getSimpleName() + "이 생성되었습니다.");
     }
+
+
 }

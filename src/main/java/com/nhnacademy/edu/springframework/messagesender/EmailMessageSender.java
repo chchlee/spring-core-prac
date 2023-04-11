@@ -11,4 +11,8 @@ public class EmailMessageSender implements MessageSender {
     public void init() {
         System.out.println(getClass().getSimpleName() + "이 생성되었습니다.");
     }
+
+    public void cleanup() {
+        System.out.println(getClass().getSimpleName() + "이 소멸되었습니다.");
+    }
 }
