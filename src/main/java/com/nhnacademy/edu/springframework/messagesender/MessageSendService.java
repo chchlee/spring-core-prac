@@ -18,6 +18,7 @@ public class MessageSendService {
 
     public void doSendMessage() {
         User user = new User("choonghee123@gmail.com", "01057118590");
-        messageSender.sendMessage(user, "Hello, "+getClass().getSimpleName()+ " Message!");
+        messageSender.sendMessage(user,
+                "Hello, "+getClass().getSimpleName()+ " Message!");
     }
 }
