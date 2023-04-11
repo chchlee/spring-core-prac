@@ -1,9 +1,6 @@
 package com.nhnacademy.edu.springframework.messagesender;
 
 public class EmailMessageSender implements MessageSender {
-    public EmailMessageSender(){
-        init();
-    }
 
     @Override
     public void sendMessage(User user, String message) {
