@@ -7,8 +7,10 @@ public class Main {
         User user = new User("choonghee123@gmail.com", "01057118590");
 
         try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml")) {
-            MessageSender smsMessageSender = context.getBean("smsMessageSender", SmsMessageSender.class);
-            smsMessageSender.sendMessage(user, "Hello, ApplicationContext");
+            MessageSender smsMessageSender1 = context.getBean("smsMessageSender", SmsMessageSender.class);
+            MessageSender smsMessageSender2 = context.getBean("smsMessageSender", SmsMessageSender.class);
+            MessageSender emailMessageSender1 = context.getBean("emailMessageSender", EmailMessageSender.class);
+            MessageSender emailMessageSender2 = context.getBean("emailMessageSender", EmailMessageSender.class);
         }
     }
 
