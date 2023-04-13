@@ -2,23 +2,44 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="
-        http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- annotation설정을 위해 추가-->
-    <context:annotation-config />
+    <context:property-placeholder location="classpath:dooray.properties"/>
 
-    <!-- @Required 애너테이션 사용을 위해 추가 -->
-    <bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor" />
 
-    <bean id="smsMessageSender" class="com.nhnacademy.edu.springframework.messagesender.SmsMessageSender">
+
+
+    <bean id="propertyConfigurer" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:dooray.properties</value>
+            </list>
+        </property>
+        <property name="fileEncoding" value="UTF-8"/>
     </bean>
-    <bean id="emailMessageSender" class="com.nhnacademy.edu.springframework.messagesender.EmailMessageSender">
+
+
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate"/>
+
+    <bean id="doorayHookSender" class="com.nhn.dooray.client.DoorayHookSender">
+        <constructor-arg ref="restTemplate"/>
+        <constructor-arg value="${hookUrl}"/>
     </bean>
 
-    <bean id="messageSendService" class="com.nhnacademy.edu.springframework.messagesender.MessageSendService"
-          autowire="byName"></bean>
+    <bean id="doorayMessageSender" class="com.nhnacademy.edu.springframework.messagesender.DoorayMessageSender">
+        <constructor-arg ref="doorayHookSender"/>
+    </bean>
+
+    <bean id="messageSendService" class="com.nhnacademy.edu.springframework.messagesender.MessageSendService">
+        <constructor-arg ref="doorayMessageSender"/>
+    </bean>
+
+    <bean id="user" class="com.nhnacademy.edu.springframework.messagesender.User">
+        <constructor-arg value="${userName}"/>
+        <constructor-arg value="${userMessage}"/>
+    </bean>
+
 </beans>

@@ -1,19 +1,19 @@
 package com.nhnacademy.edu.springframework.messagesender;
 
 public class User {
-    private final String email;
-    private final String phoneNumber;
+    private String name;
+    private String message;
 
-    public User(String email, String phoneNumber) {
-        this.email = email;
-        this.phoneNumber = phoneNumber;
+    public User(String name, String message) {
+        this.name = name;
+        this.message = message;
     }
 
-    public String getEmail() {
-        return email;
+    public String getName() {
+        return name;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getMessage() {
+        return message;
     }
 }
