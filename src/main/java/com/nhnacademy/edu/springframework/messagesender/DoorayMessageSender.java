@@ -6,13 +6,14 @@ import com.nhn.dooray.client.DoorayHookSender;
 import java.io.UnsupportedEncodingException;
 
 public class DoorayMessageSender implements MessageSender {
-    private DoorayHookSender doorayHookSender;
+    DoorayHookSender doorayHookSender;
 
     public DoorayMessageSender(DoorayHookSender doorayHookSender) {
         this.doorayHookSender = doorayHookSender;
     }
 
     @Override
+    @LogExecutionTime
     public boolean sendMessage(User user, String message) {
         try {
             String utf8Message = new String(message.getBytes("ISO-8859-1"), "UTF-8");
@@ -28,5 +29,4 @@ public class DoorayMessageSender implements MessageSender {
             return false;
         }
     }
-
 }

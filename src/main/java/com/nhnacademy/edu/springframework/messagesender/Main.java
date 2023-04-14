@@ -1,5 +1,5 @@
-import com.nhnacademy.edu.springframework.messagesender.MessageSendService;
-import com.nhnacademy.edu.springframework.messagesender.User;
+package com.nhnacademy.edu.springframework.messagesender;
+
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Main {
