@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="classpath:dooray.properties"/>
+
+    <aop:config>
+        <aop:pointcut id="logExecutionTimePointcut"
+                      expression="execution(* com.nhnacademy.edu.springframework.messagesender.DoorayMessageSender.sendMessage(..)) and @annotation(com.nhnacademy.edu.springframework.messagesender.LogExecutionTime)"/>
+
+        <aop:aspect id="logExecutionTimeAspect" ref="logExecutionTimeAspectBean">
+            <aop:around method="logExecutionTime" pointcut-ref="logExecutionTimePointcut"/>
+        </aop:aspect>
+    </aop:config>
+
+    <bean id="propertyConfigurer" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:dooray.properties</value>
+            </list>
+        </property>
+        <property name="fileEncoding" value="UTF-8"/>
+    </bean>
+
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate"/>
+
+    <bean id="doorayHookSender" class="com.nhn.dooray.client.DoorayHookSender">
+        <constructor-arg ref="restTemplate"/>
+        <constructor-arg value="${hookUrl}"/>
+    </bean>
+
+    <bean id="doorayMessageSender" class="com.nhnacademy.edu.springframework.messagesender.DoorayMessageSender">
+        <constructor-arg ref="doorayHookSender"/>
+    </bean>
+
+    <bean id="messageSendService" class="com.nhnacademy.edu.springframework.messagesender.MessageSendService">
+        <constructor-arg ref="doorayMessageSender"/>
+    </bean>
+
+    <bean id="user" class="com.nhnacademy.edu.springframework.messagesender.User">
+        <constructor-arg value="${userName}"/>
+        <constructor-arg value="${userMessage}"/>
+    </bean>
+
+    <bean id="logExecutionTimeAspectBean" class="com.nhnacademy.edu.springframework.messagesender.LogExecutionTimeAspect"/>
+
+</beans>
